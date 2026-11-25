@@ -3,48 +3,116 @@
   z-index: 1000;
   inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
-  width: min(420px, calc(100% - 32px));
-  max-height: calc(100vh - 32px);
-  max-height: calc(100dvh - 32px);
+  width: min(480px, calc(100% - 28px));
+  max-height: calc(100vh - 28px);
+  max-height: calc(100dvh - 28px);
   overflow: auto;
   box-sizing: border-box;
-  padding: 20px;
-  border: 1px solid rgb(255 255 255 / 72%);
-  border-radius: 20px;
-  background: #fffaf0;
-  color: #221e19;
-  box-shadow: 0 18px 56px rgb(34 30 25 / 24%), inset 0 1px 0 rgb(255 255 255 / 68%);
+  padding: clamp(18px, 4vw, 26px);
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 28px;
+  background: #f7f6f2;
+  color: #171715;
+  font-size: 14px;
+  line-height: 1.45;
+  box-shadow: 0 16px 48px rgb(28 25 20 / 22%), inset 0 1px 0 rgb(255 255 255 / 75%);
 }
-@supports ((backdrop-filter: blur(22px)) or (-webkit-backdrop-filter: blur(22px))) {
+@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
   #cookie-banner {
-    background: rgb(255 255 255 / 52%);
-    -webkit-backdrop-filter: blur(22px) saturate(135%);
-    backdrop-filter: blur(22px) saturate(135%);
+    background: linear-gradient(145deg, rgb(255 255 255 / 68%), rgb(255 255 255 / 40%));
+    -webkit-backdrop-filter: blur(20px) saturate(125%);
+    backdrop-filter: blur(20px) saturate(125%);
+  }
+  body:has(#cookie-banner:not([hidden]))::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    background: rgb(255 255 255 / 20%);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
   }
 }
 #cookie-banner[hidden] { display: none; }
-#cookie-banner h2 { margin: 0; font-size: 1.35rem; }
-#cookie-banner p { margin: 0.5rem 0; }
+#cookie-banner .cookie-brand {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgb(255 255 255 / 85%);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+#cookie-banner .cookie-intro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(11px, 3vw, 18px);
+  margin: 16px 0 20px;
+}
+#cookie-banner .cookie-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 10vw, 52px);
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: #ffda19;
+}
+#cookie-banner .cookie-icon::before {
+  content: "";
+  width: 65%;
+  aspect-ratio: 1;
+  border: 2px solid #171715;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 32% 42%, #171715 0 2px, transparent 2.5px),
+    radial-gradient(circle at 35% 70%, #171715 0 2px, transparent 2.5px),
+    radial-gradient(circle at 66% 62%, #171715 0 2px, transparent 2.5px),
+    radial-gradient(circle at 67% 12%, #ffda19 0 6px, #171715 6.5px 8px, transparent 8.5px);
+  mask-image: radial-gradient(circle at 74% 12%, transparent 0 6px, #000 6.5px);
+}
+#cookie-banner h2 {
+  margin: 0 0 6px;
+  font-size: clamp(17px, 4vw, 22px);
+  line-height: 1.2;
+}
+#cookie-banner p { margin: 0; }
 #cookie-banner .cookie-actions {
-  display: flex;
-  gap: 0.65rem;
-  flex-wrap: wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
 }
 #cookie-banner button, #cookie-settings {
   font: inherit;
   cursor: pointer;
 }
 #cookie-banner button {
-  border: 1px solid #9a9182;
-  border-radius: 12px;
-  padding: 0.55rem 0.7rem;
-  background: rgb(255 255 255 / 58%);
-  color: #221e19;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 48%);
+  color: inherit;
+  font-weight: 650;
 }
-#cookie-banner button[data-cookie-action="accept"] { background: #f8e04d; }
-#cookie-banner details { margin-top: 0.75rem; }
-#cookie-banner summary { cursor: pointer; }
+#cookie-banner button[data-cookie-action="accept"] { background: #ffda19; }
+#cookie-banner details:not([open]) { display: none; }
+#cookie-banner details {
+  margin-top: 12px;
+  padding-top: 10px;
+  border: 0;
+  border-top: 1px solid rgb(255 255 255 / 70%);
+}
+#cookie-banner summary { cursor: pointer; font: inherit; }
+#cookie-banner details label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  color: inherit;
+  font: inherit;
+}
+#cookie-banner input { width: auto; margin: 0; accent-color: #ffda19; }
 #cookie-settings {
   border: 0;
   padding: 0;
